@@ -1,0 +1,6 @@
+Initial commit
+
+TODO
+[ ] functionality for appending to files instead of completely overwriting
+[ ] parse and build documentation for variables, data-structures, macros, etc.
+[ ] tests
