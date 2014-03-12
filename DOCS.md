@@ -19,13 +19,15 @@ to extend language parsing or add new languages.
 
 *defvar* **language**
 
-Current language to parse
+Current language to parse.
 ***********************
 **sub-list**
 
 *defparameter* **sublist**
 
-List of tokens to be removed from strings.
+List of tokens to be removed from strings. This is used mainly when
+removing tokens like commas from argument lists before turning the
+arguments into symbols.
 ***********************
 
 ### Functions
@@ -45,7 +47,7 @@ Splits the string at the spaces, returns a list.
 
 *function* **match-function** *fn-def language* => *alist*
 
-Returns the function's name, args, and body as alist elements.
+Applies the function pattern of `language` to the `fn-def`. Returns the function's name, args, and body as alist elements.
 ***********************
 **get-val**
 
@@ -87,7 +89,8 @@ Removes opening and closing parentheses from a string.
 
 *function* **write-function** *fn-def language* => *string*
 
-Formatted string for writing to file.
+Parses `fn-def` according to the language given and returns a
+formatted string.
 ***********************
 **make-doc**
 
@@ -99,7 +102,7 @@ Writes contents to file.
 
 *function* **function-p** *language* => *closure*
 
-Returns a closre to check if the sexp matches the function pattern
+Returns a closure that checks if the sexp matches the function pattern.
 ***********************
 **load-symbols**
 
@@ -117,7 +120,9 @@ Returns as a string the contents of a file.
 
 *function* **whereis** *pred seq* => *index*
 
-Returns the index of the item searched for.
+Returns the index of the item searched for. `pred` is usually a
+predicate that tests for certain conditions like sequences starting or
+ending with a particular character or symbol.
 ***********************
 **str-to-sym**
 
@@ -129,13 +134,13 @@ Turns a function represented as a string into symbols. Start-pred and End-pred t
 
 *function* **starts-with** *x* => *closure*
 
-Returns a closure to check if the string strats with `x`.
+Returns a closure that checks if the string starts with `x`.
 ***********************
 **ends-with**
 
 *function* **ends-with** *x* => *closure*
 
-Returns a closure to check if the string ends with `x`.
+Returns a closure that checks if the string ends with `x`.
 ***********************
 **split-by-def**
 
@@ -147,13 +152,13 @@ Splits the string at every occurance of `def`.
 
 *function* **extras-p** *banned* => *closure*
 
-Returns a closure to check if the token is part of `banned`.
+Returns a closure that checks if the token is a member of `banned`.
 ***********************
 **function-defs**
 
 *function* **function-defs** *sexps language* => *sexps*
 
-Removes non-function expressions.
+Removes expressions that don't match the function pattern of the given language.
 ***********************
 **build-lisp-doc**
 
